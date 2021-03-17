@@ -1,0 +1,25 @@
+options:
+  gitlab-registration-token:
+    type: string
+    default: ""
+    description: "The registration token to use (Get it from you gitlab project)."
+  gitlab-server:
+    type: string
+    default: ""
+    description: "The gitlab server to use. E.g. https://gitlab.example.com"
+  docker-image:
+    type: string
+    default: "docker:latest"
+    description: "Deployment only config. The docker image to use for the runner. E.g. docker:latest"
+  tag-list:
+    type: string
+    default: "juju"
+    description: "Deployment only config. Comma separated Tag list for this runner. E.g. juju,master"
+  https_proxy:
+    type: string
+    default: ""
+    description: "A https proxy url E.g. https://proxy.example.com:8080/"
+  http_proxy:
+    type: string
+    default: ""
+    description: "A http proxy url E.g. http://proxy.example.com:8080/"

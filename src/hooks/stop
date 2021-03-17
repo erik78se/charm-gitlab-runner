@@ -1,0 +1,3 @@
+#!/bin/bash
+
+gitlab-runner unregister -n "$(hostname --fqdn)"

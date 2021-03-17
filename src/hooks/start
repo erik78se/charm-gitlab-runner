@@ -1,0 +1,17 @@
+#!/bin/bash
+# Here put anything that is needed to start the service.
+# Note that currently this is run directly after install
+
+source lib/gitlab-runner.bash
+
+# Register
+# Start
+# Check
+
+gitlab-runner start
+
+if gitlab-runner-status; then
+    status-set "active" "Ready."
+else
+    juju-log ERROR "Failed to start gitlab-runner, bailing out.."
+fi

@@ -1,0 +1,25 @@
+#!/bin/bash
+source lib/gitlab-runner.bash
+
+_gitlabregistrationtoken=$(config-get gitlab-registration-token)
+
+if [[ -z "$_gitlabregistrationtoken" ]]; then
+    juju-log INFO "Missing config: gitlab-registration-token"
+    status-set blocked "Missing config: gitlab-registration-token"
+    exit 0
+fi
+
+# Only re/configure if not registered already.
+# The gitlab-runner API does not support reconfiguration anyway.
+
+if ! gitlab-runner verify -n "$(hostname)"; then
+    if gitlab-runner-register "$_gitlabregistrationtoken"; then
+	status-set active "Ready (Registered OK)"
+    else
+	juju-log ERROR "Failed in registration of runner. Bailing out."
+	exit 1
+    fi
+else
+    juju-log INFO "This runner is already registered. No action taken."
+    status-set active "Ready (Already registered.)"
+fi

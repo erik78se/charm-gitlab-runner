@@ -1,0 +1,3 @@
+#!/bin/bash
+gitlab-runner list
+action-set runners="foo bar"

@@ -1,0 +1,12 @@
+#!/bin/bash
+source lib/gitlab-runner.bash
+
+# Just check the local config against the assumed name (hostname)
+if gitlab-runner verify -n "$(hostname)"; then
+    _token=$(grep token /etc/gitlab-runner/config.toml | awk -F= '{print substr($2,3,8)}')    
+    status-set active "Ready ($_token)."
+else
+    status-set waiting "Not ready ($_token)."
+fi
+
+set-gitlab-runner-version

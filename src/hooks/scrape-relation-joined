@@ -1,0 +1,8 @@
+#!/bin/bash
+set -e
+
+juju-log -l DEBUG "Joining scrape (prometheus) relation"
+
+relation-set hostname="$(network-get scrape --ingress-address)"
+relation-set port="9252"
+relation-set metrics_path="/metrics"
