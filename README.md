@@ -1,4 +1,3 @@
 # A gitlab-runner juju-charm
 
-See [src/README.md]
-
+ See [README](src/README.md)

@@ -7,11 +7,11 @@ The charm:
 * Installs gitab-runner upstream repos as described here:
 https://gitlab.com/gitlab-org/gitlab-runner/blob/master/docs/install/linux-repository.md
 
-* Configures and registers a single docker runner using the configured <gitlab-registration-token>.
+* Configures and registers a single docker runner using the configured gitlab-registration-token.
 
-* Will expose prometheus metrics on port 
+* Will expose prometheus metrics on port: 9252
 
-The runner registers with its hostname (fqdn) in gitlab (default with gitlab-runner) and any supplied tags. If none are given, "juju" will be added as a tag.
+The runner registers with its hostname (fqdn) in gitlab (default with gitlab-runner) and any supplied tags. A default "juju" tag is added unless changed.
 
 The runner removes itself and unregisters as part of a unit removal.
 
@@ -22,6 +22,11 @@ Actions exists to perform register/unregister and some more.
 You need to:
 * Extract a gitlab-registration-token from the gitlab project under "Settings -> CI/CD".
 * Know the URL address to the gitlab-server for gitlab-runner registration.
+
+# About runner tag-list
+Tags are added when a runner is registered (deployed) and can only be changed after through the gitlab server GUI or APIs unavailable to gitlab-runners.
+
+Consequently, charm config changes in the charm will not have an impact inside of gitlab. Changes to the tag-list takes effect only for new units.
 
 # Example deploy, scale-up/down
 

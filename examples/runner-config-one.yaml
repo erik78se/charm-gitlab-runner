@@ -1,4 +1,4 @@
 gitlab-runner-one:
   gitlab-server: "https://gitlab.example.com"
   gitlab-registration-token: i-Y2BCxsAXdxbYmz2pNx
-  tag-list: "juju,master,one"
+  tag-list: "juju,docker,one"
