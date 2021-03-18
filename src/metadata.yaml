@@ -4,7 +4,7 @@ maintainer: Erik Lönroth <erik.lonroth@gmail.com>
 description: |
    Registers a gitlab-runner with a gitlab instance. Uses upstream gitlab-runner.
 tags:
-  - development
+  - ops
 series:
   - bionic
 subordinate: false

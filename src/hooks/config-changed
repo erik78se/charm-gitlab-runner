@@ -13,6 +13,7 @@ fi
 # The gitlab-runner API does not support reconfiguration anyway.
 
 if ! gitlab-runner verify -n "$(hostname)"; then
+
     if gitlab-runner-register "$_gitlabregistrationtoken"; then
 	status-set active "Ready (Registered OK)"
     else

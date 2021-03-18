@@ -1,6 +1,8 @@
 #
 # Auxillary functions for the gitlab-runner charm
 #
+source lib/render.bash
+
 
 function gitlab-runner-status () {
     # Figure out if gitlab runner is running
@@ -18,8 +20,6 @@ function gitlab-runner-register () {
     #       with the CLI.
     #
     # Args: 1: <string: gitlab-registration-token>
-    #       2: <list: tag_one,tag_two,tag_three,tag_n>
-    #
     
     _gitlabregistrationtoken="${1}"
     _taglist=$(config-get tag-list)
@@ -41,12 +41,32 @@ function gitlab-runner-register () {
 
     # DEBUG set -x shows what is executed in logs.
     # set -x
+
+    # First render global configs
+    render-global-config-toml
+
+    # Second render runner template.
+    render-docker-runner-template
+
+    # Third, register...
     
-    if gitlab-runner register --non-interactive \
+    if [ -z "${_taglist}" ]; then
+	rununtagged="true"
+    else
+	rununtagged="false"	
+    fi
+
+    # Perform registration with custom runner template.
+    if gitlab-runner register \
+		  --non-interactive \
+	          --config /etc/gitlab-runner/config.toml \
+		  --template-config /tmp/runner-template-config.toml \
 		  --name "$(hostname --fqdn)" \
                   -u "${_gitlabserver}" \
                   -r "${_gitlabregistrationtoken}" \
                   --tag-list "${_taglist}" \
+		  --request-concurrency 0 \
+		  --run-untagged="$rununtagged" \
                   --executor "docker" \
                   --docker-image "${_dockerimage}" \
 		  $_proxyenv; then
