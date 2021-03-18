@@ -11,7 +11,9 @@ source lib/gitlab-runner.bash
 gitlab-runner start
 
 if gitlab-runner-status; then
-    status-set "active" "Ready."
+    juju-log INFO "Started OK"
 else
     juju-log ERROR "Failed to start gitlab-runner, bailing out.."
 fi
+
+hooks/update-status
