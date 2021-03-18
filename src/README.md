@@ -23,11 +23,6 @@ You need to:
 * Extract a gitlab-registration-token from the gitlab project under "Settings -> CI/CD".
 * Know the URL address to the gitlab-server for gitlab-runner registration.
 
-# About runner tag-list
-Tags are added when a runner is registered (deployed) and can only be changed after through the gitlab server GUI or APIs unavailable to gitlab-runners.
-
-Consequently, charm config changes in the charm will not have an impact inside of gitlab. Changes to the tag-list takes effect only for new units.
-
 # Example deploy, scale-up/down
 
 Create a file with your configuration: runner-config.yaml:
@@ -91,12 +86,18 @@ With any of the other examples, add in a prometheus instance:
   juju expose prometheus2
 ```
 
-When ready, the prometheus instance will be available on https://instance:9090/
+When ready, the prometheus instance will be available on http://prometheus-instance:9090/
 
+More example deploys can be found in the sources [examples](examples/) directory along with configuration yaml files used etc.
+
+# About runner tag-list
+Tags are added when a runner is registered (deployed) and can only be changed after through the gitlab server GUI or APIs unavailable to gitlab-runners.
+
+Consequently, charm config changes in the charm will not have an impact inside of gitlab. Changes to the tag-list takes effect only for new units.
 
 # Actions
 
-See "actions.yaml"
+See [actions.yaml](src/actions.yaml)
 
 # Contact Information
 Erik Lönroth: erik.lonroth@gmail.com
