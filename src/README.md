@@ -101,7 +101,8 @@ See [actions.yaml](src/actions.yaml)
 
 # Contact Information
 Erik Lönroth: erik.lonroth@gmail.com
+
 https://eriklonroth.com
 
 # Upstream charm repo
-Repo at https://github.com/erik78se/
+Repo at https://github.com/erik78se/charm-gitlab-runner
