@@ -3,6 +3,17 @@
 #
 source lib/render.bash
 
+function check_mandatory_config_values () {
+  # Check that config values are OK
+  _gitlabregistrationtoken=$(config-get gitlab-registration-token)
+  _gitlabserver=$(config-get gitlab-server)
+
+  if [[ -z "$_gitlabregistrationtoken" ]] || [[ -z "$_gitlabserver" ]]; then
+    return 1
+  else
+    return 0
+  fi
+}
 
 function gitlab-runner-status () {
     # Figure out if gitlab runner is running

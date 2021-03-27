@@ -6,7 +6,12 @@ if gitlab-runner verify -n "$(hostname)"; then
     _token=$(grep token /etc/gitlab-runner/config.toml | awk -F= '{print substr($2,3,8)}')    
     status-set active "Ready ($_token)"
 else
-    status-set waiting "Not ready ($_token)"
+  if check_mandatory_config_values; then
+    status-set waiting "Runner not registered in config.toml"
+  else
+    status-set blocked "Missing config: token or server"
+  fi
 fi
 
 set-gitlab-runner-version
+check_mandatory_config_values
