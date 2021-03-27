@@ -1,4 +1,5 @@
 name: gitlab-runner
+display-name: gitlab-runner
 summary: A gitlab-runner charm.
 maintainer: Erik Lönroth <erik.lonroth@gmail.com>
 description: |
@@ -12,3 +13,5 @@ subordinate: false
 provides:
   scrape:
     interface: prometheus
+
+docs: https://github.com/erik78se/charm-gitlab-runner/blob/main/src/README.md

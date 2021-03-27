@@ -31,7 +31,7 @@ function gitlab-runner-register () {
     _http_proxy=$(config-get http_proxy)
 
     # Set proxy if supplied as non empty.
-    if [[ ! -z "$_https_proxy" ]] || [[ ! -z $_http_proxy ]]; then     
+    if [[ -n "$_https_proxy" ]] || [[ -n $_http_proxy ]]; then
 	_proxyenv="--env https_proxy=$_https_proxy --env http_proxy=$_http_proxy"
 	export HTTPS_PROXY="$_https_proxy"
 	export HTTP_PROXY="$_https_proxy"
