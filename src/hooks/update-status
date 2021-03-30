@@ -11,13 +11,13 @@ if gitlab-runner verify -n "$(hostname)"; then
     else
         runner="unknown"
     fi
-    status-set active "Ready ($runner:$_token)"
+    status-set active "Ready $runner($_token)"
     
 else
   if check_mandatory_config_values; then
     status-set waiting "Runner not registered in config.toml"
   else
-    status-set blocked "Missing config: token or server"
+    status-set blocked "Missing mandatory config."
   fi
 fi
 

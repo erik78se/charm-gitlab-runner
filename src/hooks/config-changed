@@ -3,8 +3,8 @@ source lib/gitlab-runner.bash
 
 
 if ! check_mandatory_config_values; then
-    juju-log INFO "Missing config (token or server)"
-    status-set blocked "Missing config: token or server"
+    juju-log INFO "Missing mandatory config."
+    status-set blocked "Missing mandatory config."
     exit 0
 fi
 
