@@ -7,9 +7,9 @@ The charm:
 * Installs gitab-runner upstream repos as described here:
 https://gitlab.com/gitlab-org/gitlab-runner/blob/master/docs/install/linux-repository.md
 
-* Configures and registers a single docker runner using the configured gitlab-registration-token.
+* Configures and registers a single docker or lxd runner using the configured gitlab-registration-token and executor config (default=lxd).
 
-* Will expose prometheus metrics on port: 9252
+* Exposes prometheus metrics on port: 9252
 
 The runner registers with its hostname (fqdn) in gitlab (default with gitlab-runner) and any supplied tags. A default "juju" tag is added unless changed.
 
@@ -31,7 +31,8 @@ Create a file with your configuration: runner-config.yaml:
 gitlab-runner:
   gitlab-server: "https://gitlab.example.com"
   gitlab-registration-token: tXwQuDAVmzxzzTtw2-ZL
-  tag-list: "juju,docker,master"
+  tag-list: "juju,master"
+  executor: lxd
 ```
 
 Then deploy with your config and some instance constraints.
@@ -59,6 +60,7 @@ gitlab-runner-one:
   gitlab-server: "https://gitlab.example.com"
   gitlab-registration-token: rXwQugergrzxzz32Fw3-44
   tag-list: "juju,docker,master"
+  executor: docker
 ```
 
 runner-config-two.yaml
@@ -67,6 +69,7 @@ gitlab-runner-two:
   gitlab-server: "https://gitlab.example.com"
   gitlab-registration-token: tXwQuDAVmzxzzTtw2-ZL
   tag-list: "juju,docker,daily"
+  executor: docker
 ```
 
 Deploy the same charm, using two differnt configs and different constraints.
