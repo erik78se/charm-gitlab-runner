@@ -22,4 +22,3 @@ else
 fi
 
 set-gitlab-runner-version
-check_mandatory_config_values
