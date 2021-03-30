@@ -9,6 +9,7 @@ options:
     type: string
     default: ""
     description: "The registration token to use (Get it from you gitlab project)."
+
   gitlab-server:
     type: string
     default: ""
@@ -52,6 +53,13 @@ options:
     type: string
     default: "docker:latest"
     description: "Deployment only config. The docker image to use for docker runners. E.g. docker:latest"
+
+  executor:
+    type: string
+    default: "lxd"
+    description: |
+      "Can be: docker or lxd. Determines if this runner 
+       uses a lxd or docker executor."
 
   tag-list:
     type: string

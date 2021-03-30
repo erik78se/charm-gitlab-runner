@@ -12,10 +12,9 @@ fi
 # The gitlab-runner API does not support reconfiguration anyway.
 
 if ! gitlab-runner verify -n "$(hostname)"; then
-  _gitlabregistrationtoken=$(config-get gitlab-registration-token)
   _gitlabserver=$(config-get gitlab-server)
 
-  if gitlab-runner-register "$_gitlabregistrationtoken"; then
+  if gitlab-runner-register; then
 	  juju-log INFO "Ready (Registered with $_gitlabserver)"
   else
 	  juju-log ERROR "Failed in registration of runner. Bailing out."

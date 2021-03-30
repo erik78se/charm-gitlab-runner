@@ -101,6 +101,13 @@ Setting tag-list='' (empty) config for the charm automatically makes the runners
 juju config gitlab-runner tag-list=''
 ```
 
+# LXD runner
+The lxd-profile.yaml in the charm root configures lxd properly.
+
+See: [Using LXD with Juju](https://discourse.charmhub.io/t/using-lxd-with-juju-advanced/1091)
+
+The lxd-runner is implemented using [this method](https://docs.gitlab.com/runner/executors/custom_examples/lxd.html).
+
 # Actions
 
 See [actions.yaml](src/actions.yaml)
