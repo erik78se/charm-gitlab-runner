@@ -8,15 +8,23 @@ source lib/gitlab-runner.bash
 curl -L "https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh" | sudo bash
 
 export GITLAB_RUNNER_DISABLE_SKEL=true
-sudo -E apt-get -y install gitlab-runner docker.io
+sudo -E apt-get -y install gitlab-runner 
 
 # Install and start using a custom systemd startup (has metrics)
 cp templates/etc/systemd/system/gitlab-runner.service /etc/systemd/system/gitlab-runner.service 
 systemctl daemon-reload
 systemctl restart gitlab-runner.service
 
-# Fire up docker
-systemctl start docker.service
-
-# Set the version
+# Install either docker or lxd depending on which executor is set.
+_executor=$(config-get executor)
+if [ "$_executor" == "lxd" ]; then
+    install-lxd-executor
+elif [ "$_executor" == "docker" ]; then
+    install-docker-executor
+else
+    juju-log ERROR "Unsupported executor configured, bailing out."
+    exit 1
+fi
+   
+# Set the runner version
 set-gitlab-runner-version
