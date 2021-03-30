@@ -7,7 +7,7 @@ if gitlab-runner verify -n "$(hostname)"; then
     if grep runners.custom /etc/gitlab-runner/config.toml; then
         runner="lxd"
     elif grep runners.docker ; then
-        runner="lxd"
+        runner="docker"
     else
         runner="unknown"
     fi
