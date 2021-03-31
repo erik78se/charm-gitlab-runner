@@ -7,11 +7,11 @@ The charm:
 * Installs gitab-runner upstream repos as described here:
 https://gitlab.com/gitlab-org/gitlab-runner/blob/master/docs/install/linux-repository.md
 
-* Configures and registers a single docker or lxd runner using the configured gitlab-registration-token and executor config (default=lxd).
+* Configures and registers a single docker or lxd runner.
 
 * Exposes prometheus metrics on port: 9252
 
-The runner registers with its hostname (fqdn) in gitlab (default with gitlab-runner) and any supplied tags. A default "juju" tag is added unless changed.
+The runner registers with its hostname fqdn in gitlab with a supplied tag-list. A default "juju" tag is added unless changed.
 
 The runner removes itself and unregisters as part of a unit removal.
 
@@ -20,8 +20,9 @@ Actions exists to perform register/unregister and some more.
 # Mandatory configuration details.
 
 You need to:
-* Extract a gitlab-registration-token from the gitlab project under "Settings -> CI/CD".
-* Know the URL address to the gitlab-server for gitlab-runner registration.
+* Configure a gitlab-registration-token. Get it from your project under "Settings -> CI/CD".
+* Configure the URL to your gitlab-server.
+* Configure an executor: lxd or docker
 
 # Example deploy, scale-up/down
 
