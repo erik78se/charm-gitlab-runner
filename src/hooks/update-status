@@ -2,7 +2,7 @@
 source lib/gitlab-runner.bash
 
 # Just check the local config against the assumed name (hostname)
-if gitlab-runner verify -n "$(hostname)"; then
+if gitlab-runner verify -n "$(hostname --fqdn)"; then
     _token=$(grep token /etc/gitlab-runner/config.toml | awk -F= '{print substr($2,3,8)}')
     if grep runners.custom /etc/gitlab-runner/config.toml; then
         runner="lxd"
