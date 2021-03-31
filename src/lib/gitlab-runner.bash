@@ -37,6 +37,7 @@ function register-lxd () {
     _gitlabregistrationtoken=$(config-get gitlab-registration-token)
     _taglist=$(config-get tag-list)
     _gitlabserver=$(config-get gitlab-server)
+    _concurrent=$(config-get concurrent)
     
     _https_proxy=$(config-get https_proxy)
     _http_proxy=$(config-get http_proxy)
@@ -54,9 +55,11 @@ function register-lxd () {
     else
 	rununtagged="false"	
     fi
-	
+    
+    
     if gitlab-runner register \
                      --non-interactive \
+		     --request-concurrency "$_concurrent" \
                      --url "${_gitlabserver}" \
                      --tag-list "${_taglist}" \
 		     --request-concurrency 0 \
@@ -132,7 +135,7 @@ function register-docker () {
                   --url "${_gitlabserver}" \
                   --registration-token "${_gitlabregistrationtoken}" \
                   --tag-list "${_taglist}" \
-		  --request-concurrency 0 \
+		  --request-concurrency "$_concurrent" \
 		  --run-untagged="$rununtagged" \
                   --executor "docker" \
                   --docker-image "${_dockerimage}" \

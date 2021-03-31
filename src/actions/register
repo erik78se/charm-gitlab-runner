@@ -12,7 +12,7 @@ source lib/gitlab-runner.bash
 #     --form "tag_list=${_tag_list}" \
 
 
-if ! gitlab-runner verify -n "$(hostname)"; then
+if ! gitlab-runner verify -n "$(hostname --fqdn)"; then
     if gitlab-runner-register; then
 	juju-log INFO "Ready (Registered OK)"
     else

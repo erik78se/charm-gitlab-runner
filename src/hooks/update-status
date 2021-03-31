@@ -4,9 +4,9 @@ source lib/gitlab-runner.bash
 # Just check the local config against the assumed name (hostname)
 if gitlab-runner verify -n "$(hostname --fqdn)"; then
     _token=$(grep token /etc/gitlab-runner/config.toml | awk -F= '{print substr($2,3,8)}')
-    if grep runners.custom /etc/gitlab-runner/config.toml; then
+    if grep 'executor = "custom"' /etc/gitlab-runner/config.toml; then
         runner="lxd"
-    elif grep runners.docker ; then
+    elif grep 'executor = "docker"' ; then
         runner="docker"
     else
         runner="unknown"
