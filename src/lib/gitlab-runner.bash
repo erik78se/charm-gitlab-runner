@@ -62,7 +62,6 @@ function register-lxd () {
 		     --request-concurrency "$_concurrent" \
                      --url "${_gitlabserver}" \
                      --tag-list "${_taglist}" \
-		     --request-concurrency 0 \
 		     --run-untagged="$rununtagged" \
                      --registration-token "${_gitlabregistrationtoken}" \
                      --name "$(hostname --fqdn)" \
@@ -96,6 +95,7 @@ function register-docker () {
 
     _gitlabserver=$(config-get gitlab-server)
     _dockerimage=$(config-get docker-image)
+    _concurrent=$(config-get concurrent)
     
     _https_proxy=$(config-get https_proxy)
     _http_proxy=$(config-get http_proxy)
