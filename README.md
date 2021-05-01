@@ -6,8 +6,18 @@ Configure it with your remote gitlab server instance.
 
 Full charm docs in charm [src/README.md](src/README.md)
 
+## Build dependencies
+Build on either ubuntu or focal with these deps installed:
+
+    sudo apt install build-essential
+    sudo snap install charm --classic
+    sudo apt install shellcheck
+
 ## Building
 
     make build
 
 The resulting charm ends up in the "builds" directory.
+
+## Deploy
+See some examples here: [src/charm-gitlab-runner/examples/README.md](src/charm-gitlab-runner/examples/README.md)
