@@ -4,6 +4,7 @@ summary: A gitlab-runner charm.
 maintainer: Erik Lönroth <erik.lonroth@gmail.com>
 description: |
    Registers a gitlab-runner with a gitlab instance. Uses upstream gitlab-runner.
+   Supports docker &  lxd custom runners.
 tags:
   - ops
 series:

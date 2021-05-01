@@ -2,28 +2,31 @@
 
 A gitlab-runner charm.
 
-The charm:
+The charm works like this:
 
 * Installs gitab-runner upstream repos as described here:
 https://gitlab.com/gitlab-org/gitlab-runner/blob/master/docs/install/linux-repository.md
 
-* Configures and registers a single docker runner using the configured gitlab-registration-token.
+* Configures and registers a single docker or lxd runner using the configured gitlab-registration-token.
 
-* Will expose prometheus metrics on port: 9252
+* Exposes prometheus metrics on port: 9252
 
-The runner registers with its hostname (fqdn) in gitlab (default with gitlab-runner) and any supplied tags. A default "juju" tag is added unless changed.
+The runner registers with its hostname (fqdn) in gitlab (default with gitlab-runner) and any supplied tags. 
+A default "juju" tag is added unless changed.
 
-The runner removes itself and unregisters as part of a unit removal.
+The runner removes itself and unregisters as part of a unit removal with 'juju remove unit'.
 
-Actions exists to perform register/unregister and some more.
+Some actions are available to help register/unregister plus some more.
 
 # Mandatory configuration details.
 
-You need to:
-* Extract a gitlab-registration-token from the gitlab project under "Settings -> CI/CD".
-* Know the URL address to the gitlab-server for gitlab-runner registration.
+The following configurations are mandatory:
 
-# Example deploy, scale-up/down
+* **gitlab-registration-token** : Get this from your gitlab repo under "Settings -> CI/CD".
+* **gitlab-server** : The URL address to your gitlab server used to perform the gitlab-runner registration.
+
+# Example deploy & scaling
+This example show a basic deploy scaling to N runners.
 
 Create a file with your configuration: runner-config.yaml:
 
