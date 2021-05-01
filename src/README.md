@@ -2,29 +2,31 @@
 
 A gitlab-runner charm.
 
-The charm:
+The charm works like this:
 
 * Installs gitab-runner upstream repos as described here:
 https://gitlab.com/gitlab-org/gitlab-runner/blob/master/docs/install/linux-repository.md
 
-* Configures and registers a single docker or lxd runner.
+* Configures and registers a single docker or lxd runner using the configured gitlab-registration-token.
 
 * Exposes prometheus metrics on port: 9252
 
-The runner registers with its hostname fqdn in gitlab with a supplied tag-list. A default "juju" tag is added unless changed.
+The runner registers with its hostname (fqdn) in gitlab (default with gitlab-runner) and any supplied tags. 
+A default "juju" tag is added unless changed.
 
-The runner removes itself and unregisters as part of a unit removal.
+The runner removes itself and unregisters as part of a unit removal with 'juju remove unit'.
 
-Actions exists to perform register/unregister and some more.
+Some actions are available to help register/unregister plus some more.
 
 # Mandatory configuration details.
 
-You need to:
-* Configure a gitlab-registration-token. Get it from your project under "Settings -> CI/CD".
-* Configure the URL to your gitlab-server.
-* Configure an executor: lxd or docker
+The following configurations are mandatory:
 
-# Example deploy, scale-up/down
+* **gitlab-registration-token** : Get this from your gitlab repo under "Settings -> CI/CD".
+* **gitlab-server** : The URL address to your gitlab server used to perform the gitlab-runner registration.
+
+# Example deploy & scaling
+This example show a basic deploy scaling to N runners.
 
 Create a file with your configuration: runner-config.yaml:
 
@@ -32,8 +34,7 @@ Create a file with your configuration: runner-config.yaml:
 gitlab-runner:
   gitlab-server: "https://gitlab.example.com"
   gitlab-registration-token: tXwQuDAVmzxzzTtw2-ZL
-  tag-list: "juju,master"
-  executor: lxd
+  tag-list: "juju,docker,master"
 ```
 
 Then deploy with your config and some instance constraints.
@@ -61,7 +62,6 @@ gitlab-runner-one:
   gitlab-server: "https://gitlab.example.com"
   gitlab-registration-token: rXwQugergrzxzz32Fw3-44
   tag-list: "juju,docker,master"
-  executor: docker
 ```
 
 runner-config-two.yaml
@@ -70,7 +70,6 @@ gitlab-runner-two:
   gitlab-server: "https://gitlab.example.com"
   gitlab-registration-token: tXwQuDAVmzxzzTtw2-ZL
   tag-list: "juju,docker,daily"
-  executor: docker
 ```
 
 Deploy the same charm, using two differnt configs and different constraints.
@@ -104,13 +103,6 @@ Setting tag-list='' (empty) config for the charm automatically makes the runners
 ```
 juju config gitlab-runner tag-list=''
 ```
-
-# LXD runner
-The lxd-profile.yaml in the charm root configures lxd properly.
-
-See: [Using LXD with Juju](https://discourse.charmhub.io/t/using-lxd-with-juju-advanced/1091)
-
-The lxd-runner is implemented using [this method](https://docs.gitlab.com/runner/executors/custom_examples/lxd.html).
 
 # Actions
 
