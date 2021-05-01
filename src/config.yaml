@@ -56,7 +56,7 @@ options:
 
   executor:
     type: string
-    default: "lxd"
+    default: "docker"
     description: |
       "Can be: docker or lxd. Determines if this runner 
        uses a lxd or docker executor."
