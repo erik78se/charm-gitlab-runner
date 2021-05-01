@@ -4,10 +4,6 @@
 
 source lib/gitlab-runner.bash
 
-# Register
-# Start
-# Check
-
 gitlab-runner start
 
 if gitlab-runner-status; then

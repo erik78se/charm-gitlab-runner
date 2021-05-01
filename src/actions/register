@@ -6,16 +6,14 @@
 
 source lib/gitlab-runner.bash
 
-_gitlabregistrationtoken=$(config-get gitlab-registration-token)
-
 #curl --request POST "https://gitlab.example.com/api/v4/runners" \
 #     --form "token=${_token}" \
 #     --form "description=Deployed on $_hostname" \
 #     --form "tag_list=${_tag_list}" \
 
 
-if ! gitlab-runner verify -n "$(hostname)"; then
-    if gitlab-runner-register "$_gitlabregistrationtoken"; then
+if ! gitlab-runner verify -n "$(hostname --fqdn)"; then
+    if gitlab-runner-register; then
 	juju-log INFO "Ready (Registered OK)"
     else
 	juju-log ERROR "Failed in registration of runner. Bailing out."

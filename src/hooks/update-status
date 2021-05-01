@@ -2,16 +2,23 @@
 source lib/gitlab-runner.bash
 
 # Just check the local config against the assumed name (hostname)
-if gitlab-runner verify -n "$(hostname)"; then
-    _token=$(grep token /etc/gitlab-runner/config.toml | awk -F= '{print substr($2,3,8)}')    
-    status-set active "Ready ($_token)"
+if gitlab-runner verify -n "$(hostname --fqdn)"; then
+    _token=$(grep token /etc/gitlab-runner/config.toml | awk -F= '{print substr($2,3,8)}')
+    if grep 'executor = "custom"' /etc/gitlab-runner/config.toml; then
+        runner="lxd"
+    elif grep 'executor = "docker"' ; then
+        runner="docker"
+    else
+        runner="unknown"
+    fi
+    status-set active "Ready $runner($_token)"
+    
 else
   if check_mandatory_config_values; then
     status-set waiting "Runner not registered in config.toml"
   else
-    status-set blocked "Missing config: token or server"
+    status-set blocked "Missing mandatory config."
   fi
 fi
 
 set-gitlab-runner-version
-check_mandatory_config_values

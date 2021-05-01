@@ -3,19 +3,18 @@ source lib/gitlab-runner.bash
 
 
 if ! check_mandatory_config_values; then
-    juju-log INFO "Missing config (token or server)"
-    status-set blocked "Missing config: token or server"
+    juju-log INFO "Missing mandatory config."
+    status-set blocked "Missing mandatory config."
     exit 0
 fi
 
 # Only re/configure if not registered already.
 # The gitlab-runner API does not support reconfiguration anyway.
 
-if ! gitlab-runner verify -n "$(hostname)"; then
-  _gitlabregistrationtoken=$(config-get gitlab-registration-token)
+if ! gitlab-runner verify -n "$(hostname --fqdn)"; then
   _gitlabserver=$(config-get gitlab-server)
 
-  if gitlab-runner-register "$_gitlabregistrationtoken"; then
+  if gitlab-runner-register; then
 	  juju-log INFO "Ready (Registered with $_gitlabserver)"
   else
 	  juju-log ERROR "Failed in registration of runner. Bailing out."
