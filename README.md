@@ -20,4 +20,4 @@ Build on either ubuntu or focal with these deps installed:
 The resulting charm ends up in the "builds" directory.
 
 ## Deploy
-See some examples here: [src/charm-gitlab-runner/examples/README.md](src/charm-gitlab-runner/examples/README.md)
+See some examples here: [examples/README.md](examples/README.md)
