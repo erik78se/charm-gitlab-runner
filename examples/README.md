@@ -1,16 +1,12 @@
-# Build
-git clone <repo>
-make build
-
-# Deploy a single instance
+## Deploy a single instance
 
 ```bash
 juju deploy --constraints="mem=4G cores=2" ./builds/gitlab-runner --config runner-config.yaml
 ```
 
-# Example deploy, multiple projects, different sizes
+## Deploy runners for different projects with different speccs.
 
-Create two files with your separate configurations.
+Create two files with separate configurations.
 
 runner-config-one.yaml
 ```yaml
@@ -35,7 +31,7 @@ Deploy the same charm, using two differnt configs and different constraints.
   juju deploy --constraints="mem=2G cores=1" ./builds/gitlab-runner gitlab-runner-two --config runner-config-two.yaml
 ```
 
-# Deploy with prometheus and grafana
+## Deploy with prometheus and grafana
 ```bash
 juju deploy --constraints="mem=4G cores=2" ./builds/gitlab-runner --config runner-config.yaml
 juju deploy prometheus2 --constraints="mem=4G cores=2"
